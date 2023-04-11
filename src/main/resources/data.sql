@@ -1,0 +1,3 @@
+INSERT INTO USERS (ID, USER_NAME, FIRST_NAME, CURP) values(101, 'sangredenopal1', 'Enrique1', 'GOSA8304271')
+INSERT INTO USERS (ID, USER_NAME, FIRST_NAME, CURP) values(103, 'sangredenopal3', 'Enrique3', 'GOSA8304273')
+INSERT INTO USERS (ID, USER_NAME, FIRST_NAME, CURP) values(102, 'sangredenopal2', 'Enrique2', 'GOSA8304272')
