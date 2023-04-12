@@ -2,6 +2,7 @@ package com.egox.step01.controllers;
 
 import com.egox.step01.exceptions.UserExistsException;
 import com.egox.step01.exceptions.UserNotFoundException;
+import com.egox.step01.exceptions.UsernameNotFoundException;
 import com.egox.step01.models.User;
 import com.egox.step01.services.UserService;
 import jakarta.validation.Valid;
@@ -67,7 +68,11 @@ public class UserController {
     }
 
     @GetMapping("/users/byname/{username}")
-    public User getUserByUsername(@PathVariable String username){
-        return userService.getByUsername(username);
+    public User getUserByUsername(@PathVariable String username) throws UsernameNotFoundException {
+        User user = userService.getByUsername(username);
+        if(user == null){
+            throw new UsernameNotFoundException("Username: " + username + " not found");
+        }
+        return user;
     }
 }

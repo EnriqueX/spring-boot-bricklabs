@@ -2,6 +2,7 @@ package com.egox.step01.services;
 
 import com.egox.step01.exceptions.UserExistsException;
 import com.egox.step01.exceptions.UserNotFoundException;
+import com.egox.step01.exceptions.UsernameNotFoundException;
 import com.egox.step01.models.User;
 import com.egox.step01.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
