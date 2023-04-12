@@ -1,11 +1,16 @@
 package com.egox.step01.controllers;
 
+import com.egox.step01.exceptions.UserExistsException;
+import com.egox.step01.exceptions.UserNotFoundException;
 import com.egox.step01.models.User;
 import com.egox.step01.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -20,23 +25,39 @@ public class UserController {
 
     @PostMapping("/users")
     public User createUser(@RequestBody User user){
-        return userService.create(user);
+        try {
+            return userService.create(user);
+        } catch (UserExistsException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("/users/{id}")
-    public User getUserById(@PathVariable Long id){
-        return userService.getById(id);
+    public Optional<User> getUserById(@PathVariable Long id){
+        try {
+            return userService.getById(id);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 
     @PutMapping("/users/{id}")
     public User updateUserById(@PathVariable Long id, @RequestBody User user){
         user.setId(id);
-        return userService.update(user);
+        try {
+            return userService.update(user);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @DeleteMapping("/users/{id}")
     public void updateUserById(@PathVariable Long id){
-        userService.delete(id);
+        try {
+            userService.delete(id);
+        } catch (UserNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("/users/byname/{username}")

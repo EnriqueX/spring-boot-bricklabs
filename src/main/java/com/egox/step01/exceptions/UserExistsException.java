@@ -1,0 +1,8 @@
+package com.egox.step01.exceptions;
+
+public class UserExistsException extends Exception{
+
+    public UserExistsException(String message) {
+        super(message);
+    }
+}
