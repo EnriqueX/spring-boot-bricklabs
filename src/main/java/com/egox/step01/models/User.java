@@ -2,6 +2,8 @@ package com.egox.step01.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "USERS")
@@ -11,9 +13,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty(message = "Username is mandatory field, please provide a valid username")
     @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
     private String username;
 
+    @Size(min = 2, message = "Firstname should have at least 2 characters")
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
     private String firstname;
 
