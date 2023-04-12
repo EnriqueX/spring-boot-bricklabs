@@ -6,10 +6,12 @@ import com.egox.step01.exceptions.UsernameNotFoundException;
 import com.egox.step01.models.User;
 import com.egox.step01.services.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Validated
 public class UserController {
 
     @Autowired
@@ -40,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public Optional<User> getUserById(@PathVariable Long id){
+    public Optional<User> getUserById(@PathVariable @Min(1) Long id){
         try {
             return userService.getById(id);
         } catch (UserNotFoundException e) {

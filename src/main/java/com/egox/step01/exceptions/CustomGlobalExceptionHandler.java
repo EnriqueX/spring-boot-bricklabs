@@ -1,5 +1,6 @@
 package com.egox.step01.exceptions;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Date;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
@@ -33,5 +34,12 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     public final ResponseEntity<Object> handleUsernameNotFound(UsernameNotFoundException ex, WebRequest request){
         CustomErrorDetails customErrorDetails = new CustomErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(customErrorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    //ConstrainViolation Exception (@Min)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public final ResponseEntity<Object> handleConstrainViolation(ConstraintViolationException ex, WebRequest request){
+        CustomErrorDetails customErrorDetails = new CustomErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(customErrorDetails, HttpStatus.BAD_REQUEST);
     }
 }
