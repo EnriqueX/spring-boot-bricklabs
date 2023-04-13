@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "orders")
-public class Orders {
+public class Order {
 
     @Id
     @GeneratedValue
@@ -17,7 +17,7 @@ public class Orders {
 
     private String description;
 
-    public Orders() {
+    public Order() {
     }
 
     public Long getId() {
