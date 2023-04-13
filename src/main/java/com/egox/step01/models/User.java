@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -32,6 +34,9 @@ public class User {
 
     @Column(name = "CURP", length = 50, nullable = false, unique = true)
     private String curp;
+
+    @OneToMany(mappedBy = "user")
+    private List<Orders> orders;
 
     public User() {
     }
@@ -96,6 +101,14 @@ public class User {
 
     public void setCurp(String curp) {
         this.curp = curp;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 
     @Override
