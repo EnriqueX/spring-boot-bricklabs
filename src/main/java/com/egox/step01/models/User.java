@@ -1,6 +1,8 @@
 package com.egox.step01.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS")
+@JsonIgnoreProperties({"firstname", "lastname"})
 public class User extends RepresentationModel {
 
     @Id
@@ -34,6 +37,7 @@ public class User extends RepresentationModel {
     private String role;
 
     @Column(name = "CURP", length = 50, nullable = false, unique = true)
+    @JsonIgnore
     private String curp;
 
     @OneToMany(mappedBy = "user")
