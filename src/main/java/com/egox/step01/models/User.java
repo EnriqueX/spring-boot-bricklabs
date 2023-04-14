@@ -4,12 +4,13 @@ package com.egox.step01.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User extends RepresentationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
