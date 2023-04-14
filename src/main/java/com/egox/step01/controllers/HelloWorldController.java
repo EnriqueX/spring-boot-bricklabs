@@ -28,9 +28,6 @@ public class HelloWorldController {
     @GetMapping("/helloWorldBean")
     public UserDetails helloWorldBean(){
         UserDetails ud = new UserDetails();
-        ud.setFirstName("Enrique");
-        ud.setLastName("X");
-        ud.setCity("Monterrey");
         return ud;
     }
 
