@@ -4,6 +4,7 @@ package com.egox.step01.models;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -14,35 +15,43 @@ import java.util.List;
 @Entity
 @Table(name = "USERS")
 //@JsonIgnoreProperties({"firstname", "lastname"}) -- Static filtering
-@JsonFilter(value = "userFilter")
+//@JsonFilter(value = "userFilter") -- MappingJacksonValue filtering
 public class User extends RepresentationModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(Views.External.class)
     private Long id;
 
     @NotEmpty(message = "Username is mandatory field, please provide a valid username")
     @Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
+    @JsonView(Views.External.class)
     private String username;
 
     @Size(min = 2, message = "Firstname should have at least 2 characters")
     @Column(name = "FIRST_NAME", length = 50, nullable = false)
+    @JsonView(Views.External.class)
     private String firstname;
 
     @Column(name = "LAST_NAME", length = 50)
+    @JsonView(Views.External.class)
     private String lastname;
 
     @Column(name = "EMAIL", length = 50)
+    @JsonView(Views.External.class)
     private String email;
 
     @Column(name = "ROLE", length = 50)
+    @JsonView(Views.Internal.class)
     private String role;
 
     @Column(name = "CURP", length = 50, nullable = false, unique = true)
     //@JsonIgnore
+    @JsonView(Views.Internal.class)
     private String curp;
 
     @OneToMany(mappedBy = "user")
+    @JsonView(Views.Internal.class)
     private List<Order> orders;
 
     public User() {
