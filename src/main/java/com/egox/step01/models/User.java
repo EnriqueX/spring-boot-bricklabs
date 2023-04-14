@@ -1,6 +1,7 @@
 package com.egox.step01.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-@JsonIgnoreProperties({"firstname", "lastname"})
+//@JsonIgnoreProperties({"firstname", "lastname"}) -- Static filtering
+@JsonFilter(value = "userFilter")
 public class User extends RepresentationModel {
 
     @Id
@@ -37,7 +39,7 @@ public class User extends RepresentationModel {
     private String role;
 
     @Column(name = "CURP", length = 50, nullable = false, unique = true)
-    @JsonIgnore
+    //@JsonIgnore
     private String curp;
 
     @OneToMany(mappedBy = "user")
