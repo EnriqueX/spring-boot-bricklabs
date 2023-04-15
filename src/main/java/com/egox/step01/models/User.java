@@ -45,6 +45,10 @@ public class User extends RepresentationModel {
     @JsonView(Views.Internal.class)
     private String role;
 
+    @Column(name = "ADDRESS", length = 100)
+    @JsonView(Views.Internal.class)
+    private String address;
+
     @Column(name = "CURP", length = 50, nullable = false, unique = true)
     //@JsonIgnore
     @JsonView(Views.Internal.class)
@@ -101,6 +105,14 @@ public class User extends RepresentationModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getRole() {
